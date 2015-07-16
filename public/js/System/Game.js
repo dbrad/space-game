@@ -4,15 +4,16 @@ function Game(width, height) {
   var _handler = null;
   var graphics = new PIXI.autoDetectRenderer(width, height);
 
-  this.Player = new Player();
+  var player = new Player();
+  var GSM = new StateMachine(this);
+
   this.Input = new Input();
-  this.GSM = new StateMachine(this);
 
   $('body').append(graphics.view);
 
-  this.GSM.Add("MENU", new MenuState(), this);
+  GSM.Add("MENU", new MenuState(), this, player);
 
-  this.GSM.Change("MENU");
+  GSM.Change("MENU");
 
   var _busy       = false;
   var _delta      = 0.0;
@@ -35,7 +36,7 @@ function Game(width, height) {
       if(_updateDelta >= _updateTiming) {
         _updateDelta -= _updateTiming;
         Profiler.updateCounter++;
-        _game.GSM.Update(_delta);
+        GSM.Update(_delta);
       }
       Profiler.update(_delta);
 
@@ -43,7 +44,7 @@ function Game(width, height) {
       if(_renderDelta >= _renderTiming) {
         _renderDelta -= _renderTiming;
         Profiler.renderCounter++;
-        _game.GSM.Render(graphics);
+        GSM.Render(graphics);
         $('#Profiler').html("Updates per Sec: " + Profiler.UPS + "<br>Renders Per Sec: " + Profiler.FPS);
       }
       Profiler.render(_delta);

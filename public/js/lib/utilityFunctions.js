@@ -1,3 +1,5 @@
+"use strict";
+
 function addSprite( container, frame, x, y ) {
   container.addChild(new PIXI.Sprite.fromFrame(frame));
   var sprite = container.children[container.children.length - 1];

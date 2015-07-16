@@ -22,12 +22,13 @@ function StateMachine() {
     mStates[mCurrentState].OnEnter( params );
   };
 
-  this.Add = function(name, state, game) {
+  this.Add = function(name, state, game, player) {
     state.name = name;
     state.gsm = this;
     state.game = game;
+    state.player = player;
     mStates[name] = state;
   };
-  
+
   return this;
 }
