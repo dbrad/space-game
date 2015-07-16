@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js" charset="utf-8"></script>
+    <script src="/js/lib/pixi.js" charset="utf-8"></script>
+    <script src="/js/lib/utilityFunctions.js" charset="utf-8"></script>
+
+    <script src="/js/Player/Player.js" charset="utf-8"></script>
+
+    <script src="/js/State/StateMachine.js" charset="utf-8"></script>
+    <script src="/js/State/BaseState.js" charset="utf-8"></script>
+    <script src="/js/State/MenuState.js" charset="utf-8"></script>
+
+    <script src="/js/System/Input.js" charset="utf-8"></script>
+    <script src="/js/System/Animation.js" charset="utf-8"></script>
+    <script src="/js/System/Profiler.js" charset="utf-8"></script>
+    <script src="/js/System/Game.js" charset="utf-8"></script>
+
+    </script>
+    <script type="text/javascript">
+      PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
+
+      $(function(){
+        /*
+        var loader = PIXI.loader;
+        loader.once("complete", onLoaded);
+        loader.load();
+        */
+        onLoaded();
+        function onLoaded() {
+          var game = new Game(800, 400);
+          game.start();
+        }
+      });
+    </script>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <style media="screen">
+      html, body {
+        text-align: center;
+      }
+    </style>
+    <title></title>
+  </head>
+  <body>
+    <div id="Profiler">
+
+    </div>
+    <div id="StateName">
+
+    </div>
+  </body>
+</html>
