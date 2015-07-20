@@ -5,18 +5,22 @@
 
     <script src="//code.jquery.com/jquery-1.11.3.min.js" charset="utf-8"></script>
     <script src="/js/lib/pixi.js" charset="utf-8"></script>
+    <script src="/js/lib/underscore.js" charset="utf-8"></script>
     <script src="/js/lib/utilityFunctions.js" charset="utf-8"></script>
 
     <script src="/js/Player/Player.js" charset="utf-8"></script>
+    <script src="/js/Player/Crew.js" charset="utf-8"></script>
+    <script src="/js/Player/ResourceStation.js" charset="utf-8"></script>
 
     <script src="/js/State/StateMachine.js" charset="utf-8"></script>
     <script src="/js/State/BaseState.js" charset="utf-8"></script>
-    <script src="/js/State/MenuState.js" charset="utf-8"></script>
+    <script src="/js/State/GameState.js" charset="utf-8"></script>
 
     <script src="/js/System/Input.js" charset="utf-8"></script>
     <script src="/js/System/Animation.js" charset="utf-8"></script>
     <script src="/js/System/Profiler.js" charset="utf-8"></script>
     <script src="/js/System/Game.js" charset="utf-8"></script>
+    <script src="/js/System/GUI.js" charset="utf-8"></script>
 
     </script>
     <script type="text/javascript">
@@ -30,7 +34,7 @@
         */
         onLoaded();
         function onLoaded() {
-          var game = new Game(800, 400);
+          var game = new Game(1200, 600);
           game.start();
         }
       });
