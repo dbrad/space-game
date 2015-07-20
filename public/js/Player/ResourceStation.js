@@ -6,6 +6,7 @@ function ResourceStation(name, crewlist, min, max) {
   var crew = crewlist;
 
   this.name = name;
+  this.MaxCrew = 5;
 
   this.getCrewCount = function() {
     var station = this;

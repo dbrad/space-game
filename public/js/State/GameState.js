@@ -81,8 +81,12 @@ function GameState() {
         crew.doTurn();
       });
 
+      this.player.Energy -= TheMine.getCrewCount();
+
       if( turn % 3 === 0 ) {
         // New day begins, feed people (or random crew members will die)
+
+
         day++;
         turn = 0;
         while(this.player.Rations < Crew.length) {
@@ -95,6 +99,9 @@ function GameState() {
         }
         this.player.Rations -= Crew.length;
       }
+
+      // TODO(david): Unassign miner crewmembers if energy < miner count
+      
       turn++;
       this.player.ready = false;
 

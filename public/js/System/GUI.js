@@ -8,6 +8,7 @@ function GUIModules(state) {
   };
 
   this.init = function(Stage) {
+    // TURN / DAY COUNTER GUI
     var TurnTracker = this.addGUIModule("TurnTracker");
     var DayEle = TurnTracker.addGUIElement("Day", new PIXI.Text("0", { font : "20px monospace", fill: "white"}));
 
@@ -16,7 +17,11 @@ function GUIModules(state) {
 
     var TurnEle = TurnTracker.addGUIElement("Turn", new PIXI.Text("0", { font : "20px monospace", fill: "white"}));
     TurnEle.position.x = numberX;
-    TurnEle.position.y = (19);
+    TurnEle.position.y = (20);
+
+    var Labels = TurnTracker.addGUIElement("Labels", new PIXI.Text("DAY\rTURN", {font: "20px monospace", fill: "white", align: "right", lineHeight: 20}));
+    Labels.anchor.x = 1;
+    Labels.position.x = (_State.game.getWidth()/2) - 5 ;
 
     Stage.addChild(TurnTracker.LocalStage);
   };
@@ -28,19 +33,6 @@ function GUIModules(state) {
     init: function(Stage) {
       this.LocalStage = new PIXI.Container();
 
-      var Header = new PIXI.Text("DAY\rTURN", {font: "20px monospace", fill: "white", align: "right"});
-      Header.anchor.x = 1;
-      Header.position.x = (_State.game.getWidth()/2) - 5 ;
-      this.LocalStage.addChild(Header);
-/*
-      var numberX =  (_State.game.getWidth()/2 + 5);
-
-      this.Day.position.x = numberX;
-      Stage.addChild(this.Day);
-      this.Turn.position.x = numberX;
-      this.Turn.position.y = (19);
-      this.LocalStage.addChild(this.Turn);
-      */
       Stage.addChild(this.LocalStage);
     },
     cleanUp: function() {
@@ -56,7 +48,7 @@ function GUIModules(state) {
 
 
     init : function(Stage) {
-      var Labels = new PIXI.Text("RATIONS\rENERGY\rORE", {font: "15px monospace", fill: "white"});
+      var Labels = new PIXI.Text("RATIONS\rENERGY\rORE", {font: "15px monospace", fill: "white", lineHeight: 15});
       Stage.addChild(Labels);
       var numbersX = 75;
       this.Rations.position.x = numbersX;
@@ -83,7 +75,7 @@ function GUIModules(state) {
       Stage.addChild(Header);
       var headerYOff = 25;
 
-      var Labels = new PIXI.Text("TOTAL\rUNASSIGNED\rINJURED", {font: "15px monospace", fill: "white", align: "right"});
+      var Labels = new PIXI.Text("TOTAL\rUNASSIGNED\rINJURED", {font: "15px monospace", fill: "white", align: "right", lineHeight: 15});
       Labels.anchor.x = 1.0;
       Labels.position.y = headerYOff;
       Labels.position.x = labelX;
