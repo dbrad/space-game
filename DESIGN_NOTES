@@ -1,9 +1,10 @@
 Day
   - 3 turns
 
-Event Deck
-  - 1 card played after player locks in turn decision
-  - Changes outcome of turn slightly
+Event "Deck"
+  - 1 event per turn after player locks in turn decision
+  - Changes outcome of turn slightly (positive of negative)
+
 Crew
   - Assign Crew to Duties
     - Mine
@@ -11,39 +12,36 @@ Crew
     - Solar Energy Farm Operation
   - Can be injured (unusable for x turns)
   - Can be locked into duty for x turns (Research)
-Stations
+
+Resource Station(s)
   => All un-upgrade stations follow rule: +1 max / person, +1 min / 2 people
+  => Default max crew per station is 5
   - Food Farm
-    - 1 - 1 base / turn (0 people = 1 - 1, 1 people 1 - 2, 2 people 2 - 3, 3 people 2 - 4, etc)
   - Solar Farm
-    - 1 - 1 base / turn (0 people = 1 - 1, 1 people 1 - 2, 2 people 2 - 3, 3 people 2 - 4, etc)
   - Asteroid Mine
-    - 0 - 0 base (0 people = 0 - 0, 1 people 0 - 1, 2 people 1 - 2, 3 people 1 - 3, etc)
+    - Negative events can injured Crew Members for turn(s)
+
+Special Station(s)
   - Research Lab
+
 Upgrades
-  - Cost Ore, Energy, and Man Power
+  - Cost Ore, Energy, and Man Power (lock down crew members for x turns / x days)
 
 
 Resources
-  - Amounts also a range for the turn (ie. 1-3, 3-5)
-  - Negative events can only reduce to the minimum minus 1
-  - Positive Events are flat bonus on top of production (ie. +1 Energy, +2 Food)
+  - Amounts generated are a range for the turn (ie. 1-3, 3-5)
+  - Negative event can reduce min, max, or a flat reduction of production.
+  - Flat reduction of banked resources can also occur. (Food spoil, power wasted, ore lost)
+  - Position event can change resource output (make the min the same as the max, increase max, flat addition)
+
 Rations
-  - Come from Hydroponic farm, can increase by manning it
-  - Negative event spoil food, or reduce amount produced
-  - Need 1 food / crew per day (3 turns)
+  - Come from Hydroponic farm by manning it
+  - Need 1 food per crew per day (3 turns)
+
 Energy
-  - Comes from Solar Farm passively, can increase by manning it
-  - Negative Events reduce output for a turn
+  - Comes from Solar Farm passively, increase by manning it
+
 Ore
   - Comes from mining only when manned
   - Victory Points
   - Also used to repair damaged systems
-  - Negative events can injured Crew Members for turn(s)
-
-
-
-Crew
-Total    ##
-Inactive ##
-Injured  ##

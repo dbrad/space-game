@@ -7,15 +7,17 @@ function GUIModules(state) {
     return this.Modules[name];
   };
 
+  // TODO(david): Move modules to logical objects
   this.init = function(Stage) {
-    // TURN / DAY COUNTER GUI
+    // NOTE(david): Turn / day GUI
+    // TODO(david): Move to a Turn Tracker object?
     var TurnTracker = this.addGUIModule("TurnTracker");
-    var DayEle = TurnTracker.addGUIElement("Day", new PIXI.Text("0", { font : "20px monospace", fill: "white"}));
+    var DayEle = TurnTracker.addTextElement("Day", new PIXI.Text("0", { font : "20px monospace", fill: "white"}), _State, "day");
 
     var numberX =  (_State.game.getWidth()/2 + 5);
     DayEle.position.x = numberX;
 
-    var TurnEle = TurnTracker.addGUIElement("Turn", new PIXI.Text("0", { font : "20px monospace", fill: "white"}));
+    var TurnEle = TurnTracker.addTextElement("Turn", new PIXI.Text("0", { font : "20px monospace", fill: "white"}), _State, "turn");
     TurnEle.position.x = numberX;
     TurnEle.position.y = (20);
 
@@ -24,21 +26,6 @@ function GUIModules(state) {
     Labels.position.x = (_State.game.getWidth()/2) - 5 ;
 
     Stage.addChild(TurnTracker.LocalStage);
-  };
-
-  this.DayTurnGUI = {
-    Day: new PIXI.Text("0", { font : "20px monospace", fill: "white"}),
-    Turn: new PIXI.Text("0", { font : "20px monospace", fill: "white"}),
-
-    init: function(Stage) {
-      this.LocalStage = new PIXI.Container();
-
-      Stage.addChild(this.LocalStage);
-    },
-    cleanUp: function() {
-      if(this.LocalStage)
-        this.LocalStage.destroy(true);
-    }
   };
 
   this.ResourceGUI = {
@@ -106,20 +93,15 @@ function GUIModule(name) {
   this.LocalStage = new PIXI.Container();
 
   this.addGUIElement = function(name, obj) {
-    this.Elements[name] = obj;
-    this.LocalStage.addChild(this.Elements[name]);
-    return this.Elements[name];
-  };
-  /*
-  this.addGUIElement = function(name, obj) {
     this.Elements[name] = new GUIElement(name, obj);
-    this.LocalStage.addChild(this.Elements[name]);
-    return this.Elements[name];
-  };*/
+    this.LocalStage.addChild(this.Elements[name].G);
+    return this.Elements[name].G;
+  };
+
   this.addTextElement = function(name, PIXIobj, DATAobj, DATAacc) {
     this.Elements[name] = new TextElement(name, PIXIobj, DATAobj, DATAacc);
-    this.LocalStage.addChild(this.Elements[name]);
-    return this.Elements[name];
+    this.LocalStage.addChild(this.Elements[name].G);
+    return this.Elements[name].G;
   };
 }
 
@@ -137,6 +119,6 @@ function TextElement(name, PIXIobj, DATAobj, DATAacc) {
   this.DATAobj = DATAobj;
   this.DATAacc = DATAacc;
   this.updateBinding = function() {
-    this.G.text = this.DATAobj[this.DATAacc];
+    this.G.text = (this.DATAobj[this.DATAacc]);
   };
 }

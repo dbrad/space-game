@@ -9,50 +9,57 @@ function GameState() {
   }
 
   var _State = this;
-  var turn = 1;
-  var day = 1;
+  this.turn = 1;
+  this.day = 1;
   var Crew = [];
   populateCrew();
 
-  var FoodStation   = new ResourceStation("FOOD", Crew, 0, 0);
-  var SolarStation  = new ResourceStation("SOLAR", Crew, 1, 1);
-  var TheMine       = new ResourceStation("MINE", Crew, 0, 0);
+  var GUI = new GUIModules(this);
+
+  var FoodStation   = new ResourceStation("Hydroponoic Farm", GUI, Crew, 0, 0);
+  var SolarStation  = new ResourceStation("Solar Farm", GUI, Crew, 1, 1);
+  var TheMine       = new ResourceStation("Asteroid Mine", GUI, Crew, 0, 0);
   var ResearchStation = {};
   var Upgrades = [];
 
   var TurnStatus = {};
-  var GUI = new GUIModules(this);
 
   this.OnEnter = function() {
     this.game.Input.AddObserverCallback(pushInput);
     GUI.init(this.Stage);
     GUI.CrewStatusGUI.init(this.Stage);
     GUI.ResourceGUI.init(this.Stage);
-    GUI.DayTurnGUI.init(this.Stage);
 
-    /*
-      GUI.Modules.forEach(function(Module) {
-        Module.Elements.forEach(function(Element) {
-          Element.updateBinding();
-        });
+    FoodStation.initGUI(this.Stage);
+    GUI.Modules[FoodStation.name].LocalStage.position.x = 300;
+    GUI.Modules[FoodStation.name].LocalStage.position.y = 250;
+
+    SolarStation.initGUI(this.Stage);
+    GUI.Modules[SolarStation.name].LocalStage.position.x = 600;
+    GUI.Modules[SolarStation.name].LocalStage.position.y = 250;
+
+    TheMine.initGUI(this.Stage);
+    GUI.Modules[TheMine.name].LocalStage.position.x = 900;
+    GUI.Modules[TheMine.name].LocalStage.position.y = 250;
+
+
+    _.each(GUI.Modules, function(Module) {
+      _.each(Module.Elements, function(Element) {
+        Element.updateBinding();
       });
-
-    */
-
-    GUI.Modules["TurnTracker"].Elements["Day"].text = day;
-    GUI.Modules["TurnTracker"].Elements["Turn"].text = turn;
+    });
 
     GUI.CrewStatusGUI.Unassigned.text = getUnassignedCount();
     GUI.CrewStatusGUI.Total.text = Crew.length;
 
-    GUI.ResourceGUI.Rations.text = this.player.Rations;
-    GUI.ResourceGUI.Energy.text = this.player.Energy;
-    GUI.ResourceGUI.Ore.text = this.player.Ore;
+    // TODO(david): MOVING THIS INTO PLAYER RESOURCE OBJECT
+    GUI.ResourceGUI.Rations.text = this.player.Resources.Rations;
+    GUI.ResourceGUI.Energy.text = this.player.Resources.Energy;
+    GUI.ResourceGUI.Ore.text = this.player.Resources.Ore;
   };
 
   this.OnExit = function() {
-    this.Stage.removeChild(GUI.DayTurnGUI.LocalStage);
-    GUI.DayTurnGUI.cleanUp();
+    this.Stage.destory(true);
   };
 
   this.Update = function() {
@@ -65,69 +72,89 @@ function GameState() {
       break;
     }
 
-    // Player has submitted turn orders
+    // NOTE(david): Player has submitted turn orders
     if( this.player.ready ) {
+      // TODO(david): Get new event.
+      // TODO(david): Attach the event to the whatever is being affected
+
+      // TODO(david): Resolve event if needed
+
       TurnStatus.deadCrew = 0;
+
+      // NOTE(david): Generate Resources
       TurnStatus.foodEarned = FoodStation.doTurn();
-      this.player.Rations += TurnStatus.foodEarned;
+      this.player.Resources.addRations(TurnStatus.foodEarned);
 
       TurnStatus.solarEarned = SolarStation.doTurn();
-      this.player.Energy += TurnStatus.solarEarned;
+      this.player.Resources.addEnergy(TurnStatus.solarEarned);
 
       TurnStatus.oreEarned = TheMine.doTurn();
-      this.player.Ore += TurnStatus.oreEarned;
+      this.player.Resources.addOre(TurnStatus.oreEarned);
 
+      // NOTE(david): tick each crew memeber, this may un-injured, un-lock them.
       Crew.forEach(function(crew) {
         crew.doTurn();
       });
 
-      this.player.Energy -= TheMine.getCrewCount();
+      // NOTE(david): Pay energy
+      this.player.Resources.spendEnergy( TheMine.getCrewCount() );
 
-      if( turn % 3 === 0 ) {
-        // New day begins, feed people (or random crew members will die)
+      // NOTE(david): Day end processing goes in here
+      // TODO(david): Make number of turns per day adjustable, way of setting difficulty due to food cost.
+      if( this.turn % 3 === 0 ) {
+        this.day++;
+        this.turn = 0;
 
-
-        day++;
-        turn = 0;
-        while(this.player.Rations < Crew.length) {
+        // NOTE(david): Feed the crew, kill random crew if not enough food
+        while(!this.player.Resources.spendRations(Crew.length)) {
           var randomCrew = Math.floor(Math.random() * Crew.length);
           Crew.splice(randomCrew, 1);
           TurnStatus.deadCrew++;
           if(Crew.length <= 0) {
-            // GAME OVER
+            // TODO(david): GAMEOVER MAN
+            break;
           }
         }
-        this.player.Rations -= Crew.length;
       }
 
       // TODO(david): Unassign miner crewmembers if energy < miner count
-      
-      turn++;
+
+      this.turn++;
       this.player.ready = false;
 
+      // TODO(david): Clean up data binding (in progress already)
       GUI.CrewStatusGUI.Injured.text = getInjuredCount();
       GUI.CrewStatusGUI.Unassigned.text = getUnassignedCount();
       GUI.CrewStatusGUI.Total.text = Crew.length;
 
-      GUI.Modules["TurnTracker"].Elements["Day"].text = day;
-      GUI.Modules["TurnTracker"].Elements["Turn"].text = turn;
+      _.each(GUI.Modules, function(Module) {
+        _.each(Module.Elements, function(Element) {
+          Element.updateBinding();
+        });
+      });
 
-      GUI.ResourceGUI.Rations.text = this.player.Rations;
-      GUI.ResourceGUI.Energy.text = this.player.Energy;
-      GUI.ResourceGUI.Ore.text = this.player.Ore;
+      // TODO(david): MOVING THIS INTO PLAYER RESOURCE OBJECT
+      GUI.ResourceGUI.Rations.text = this.player.Resources.Rations;
+      GUI.ResourceGUI.Energy.text = this.player.Resources.Energy;
+      GUI.ResourceGUI.Ore.text = this.player.Resources.Ore;
     }
 
   };
 
+
+
+  // NOTE(daivd): Debug function to make a skeleton crew for testing.
+  // TODO(david): This stuff will be based on difficulty
   function populateCrew() {
     for(var crewCount = 0; crewCount < 20; crewCount++) {
       Crew.push(new Crewman());
     }
-    Crew[0].Station = Crew[1].Station = Crew[2].Station = Crew[3].Station = Crew[4].Station = "FOOD";
-    Crew[5].Station = Crew[6].Station = Crew[7].Station = Crew[8].Station = Crew[9].Station = "SOLAR";
-    Crew[10].Station = Crew[11].Station = Crew[12].Station = Crew[13].Station = Crew[14].Station = "MINE";
+    Crew[0].Station = Crew[1].Station = Crew[2].Station = Crew[3].Station = Crew[4].Station = "Hydroponoic Farm";
+    Crew[5].Station = Crew[6].Station = Crew[7].Station = Crew[8].Station = Crew[9].Station = "Solar Farm";
+    Crew[10].Station = Crew[11].Station = Crew[12].Station = Crew[13].Station = Crew[14].Station = "Asteroid Mine";
   }
-
+  // NOTE(david): Helper Functions to get injured and unassigned count
+  // TODO(david): Maybe move to a Crew Manager?
   function getInjuredCount() {
     var result = 0;
     Crew.forEach(function(crew) {
@@ -136,7 +163,6 @@ function GameState() {
     });
     return result;
   }
-
   function getUnassignedCount() {
     var result = 0;
     Crew.forEach(function(crew) {

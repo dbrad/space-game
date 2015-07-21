@@ -1,12 +1,42 @@
-function ResourceStation(name, crewlist, min, max) {
+function ResourceStation(name, GUI, crewlist, min, max) {
   var station = this;
   var eventCards = [];
   var baseMinOut = min;
   var baseMaxOut = max;
   var crew = crewlist;
 
+  this.data = {
+    get crew() {
+      var result = 0;
+      crew.forEach(function(crewman) {
+        if(crewman.Station == station.name)
+          result++;
+      });
+      return result;
+    },
+    get maxCrew() {
+      var Default = 5;
+      var result = Default;
+      // TODO(david): Handle Upgrades
+      return result;
+    }
+  };
+
+  this.GUI = GUI;
+
   this.name = name;
-  this.MaxCrew = 5;
+
+  this.initGUI = function(Stage) {
+    var Module = GUI.addGUIModule(this.name);
+    var TitleEle = Module.addGUIElement("Title", new PIXI.Text(this.name, {font:"15px monospace", fill: "white"}));
+    TitleEle.anchor.x = TitleEle.anchor.y = 0.5;
+
+    var CrewCount = Module.addTextElement("Count", new PIXI.Text(this.data.crew, {font:"15px monospace", fill: "white"}), this.data, "crew");
+    CrewCount.anchor.x = CrewCount.anchor.y = 0.5;
+    CrewCount.position.y = 20;
+
+    Stage.addChild(Module.LocalStage);
+  };
 
   this.getCrewCount = function() {
     var station = this;
