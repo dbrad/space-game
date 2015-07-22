@@ -85,6 +85,7 @@ function GUIModules(state) {
   this.StatusGUI = {};
 
   this.TurnSummaryGUI = {};
+  return this;
 }
 
 function GUIModule(name) {
