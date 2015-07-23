@@ -13,6 +13,10 @@ function Input() {
     observers.push( callback );
   };
 
+  this.ClearObservers = function() {
+    observers = [];
+  };
+
   this.keys = {
     13 : "ENTER",
     38 : "UP",

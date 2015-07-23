@@ -28,8 +28,6 @@ function StateMachine() {
     state.game = game;
     state.player = player;
 
-    if(state.init)
-      state.init();
     mStates[name] = state;
   };
 

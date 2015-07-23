@@ -16,11 +16,11 @@ function GameState() {
   var FoodStation;
   var SolarStation;
   var TheMine;
-  var ResearchStation = {};
+  var ResearchStation;
 
-  var TurnStatus = {};
+  var TurnStatus;
 
-  this.init = function() {
+  this.OnEnter = function() {
     this.player.Crew.debugCrew();
 
     TimeTracking = new DaySystem("NORMAL", this);
@@ -30,9 +30,9 @@ function GameState() {
     TheMine       = new ResourceStation("Asteroid Mine", this , 0, 0);
     ResearchStation = {};
     TurnStatus = {};
-  };
 
-  this.OnEnter = function() {
+
+    this.Stage = new PIXI.Container();
     this.Resources = this.player.Resources;
     this.Crew = this.player.Crew;
     this.player.GUI = this.GUI;
@@ -49,22 +49,23 @@ function GameState() {
     this.GUI.Modules.Crew.LocalStage.position.x = (this.game.getWidth()) - 2;
 
     FoodStation.initGUI(this.Stage);
-    this.GUI.Modules[FoodStation.name].LocalStage.position.x = 300;
+    this.GUI.Modules[FoodStation.name].LocalStage.position.x = this.game.getWidth()/4;
     this.GUI.Modules[FoodStation.name].LocalStage.position.y = 200;
 
     SolarStation.initGUI(this.Stage);
-    this.GUI.Modules[SolarStation.name].LocalStage.position.x = 600;
+    this.GUI.Modules[SolarStation.name].LocalStage.position.x = this.game.getWidth()/2;
     this.GUI.Modules[SolarStation.name].LocalStage.position.y = 200;
 
     TheMine.initGUI(this.Stage);
-    this.GUI.Modules[TheMine.name].LocalStage.position.x = 900;
+    this.GUI.Modules[TheMine.name].LocalStage.position.x = this.game.getWidth()/4 * 3;
     this.GUI.Modules[TheMine.name].LocalStage.position.y = 200;
 
     this.GUI.updateBindings();
   };
 
   this.OnExit = function() {
-    this.Stage.destory(true);
+    this.game.Input.ClearObservers();
+    this.Stage.destroy(true);
   };
 
   this.Update = function() {
@@ -114,7 +115,7 @@ function GameState() {
           this.Crew.Members.splice(randomCrew, 1);
           TurnStatus.deadCrew++;
           if(this.Crew.Members.length <= 0) {
-            // TODO(david): GAMEOVER MAN
+            this.gsm.Change("GAMEOVER");
             break;
           }
         }
@@ -123,6 +124,8 @@ function GameState() {
       // TODO(david): Unassign miner crewmembers if energy < miner count
 
       TimeTracking.data.incrementTurn();
+      if(TimeTracking.data.isGameOver())
+        this.gsm.Change("GAMEOVER");
       this.player.ready = false;
 
       this.GUI.updateBindings();

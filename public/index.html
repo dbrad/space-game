@@ -16,6 +16,7 @@
     <script src="/js/State/StateMachine.js" charset="utf-8"></script>
     <script src="/js/State/BaseState.js" charset="utf-8"></script>
     <script src="/js/State/GameState.js" charset="utf-8"></script>
+    <script src="/js/State/GameOverState.js" charset="utf-8"></script>
 
     <script src="/js/System/Input.js" charset="utf-8"></script>
     <script src="/js/System/Animation.js" charset="utf-8"></script>
@@ -36,7 +37,7 @@
         */
         onLoaded();
         function onLoaded() {
-          var game = new Game(1200, 600);
+          var game = new Game(800, 600);
           game.start();
         }
       });

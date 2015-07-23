@@ -41,8 +41,6 @@ function DaySystem(difficulty, State) {
     },
     isGameOver: function() {
       var gameOver = (day > gameLength);
-      day = (gameOver) ? gameLength : day;
-      turn = (gameOver) ? dayLength : turn;
       return gameOver;
     }
   };

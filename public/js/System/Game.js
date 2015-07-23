@@ -22,6 +22,7 @@ function Game(width, height) {
   $('body').append(_graphics.view);
 
   GSM.Add("GAME", new GameState(), this, _player);
+  GSM.Add("GAMEOVER", new GameOverState(), this, _player);
 
   GSM.Change("GAME");
 
