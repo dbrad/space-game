@@ -4,14 +4,18 @@ Animation.Glitch = function(obj) {
   this.obj = obj;
 
   this.last = 0;
-  this.next = 6000;
+  this.next = Math.floor((Math.random() * 15000) + 4000);
 
   var running = false;
   var waiting = true;
   this.config = {
+    glitch: 1,
+    glitchPace: 60,
+    glitchRate: 5 / 59.00,
+    glitchCounter: 0,
     scale: 1,
-    zoomPace: 60,
-    zoomRate: 5 / 59.00,
+    zoomPace: 180,
+    zoomRate: -0.05 / 179.00,
     zoomCounter: 0
   };
   this.update = function(delta) {
@@ -24,18 +28,26 @@ Animation.Glitch = function(obj) {
         this.next = Math.floor((Math.random() * 15000) + 4000);
     }
     if(!waiting) {
-      if(this.config.zoomCounter >= this.config.zoomPace) {
-        this.config.zoomRate = -this.config.zoomRate;
-        this.config.zoomCounter = 0;
+      if(this.config.glitchCounter >= this.config.glitchPace) {
+        this.config.glitchRate = -this.config.glitchRate;
+        this.config.glitchCounter = 0;
       }
-      this.config.zoomCounter++;
-      this.config.scale += this.config.zoomRate;
-      this.obj.filters[0].size = new PIXI.Point(this.config.scale, this.config.scale);
-      if(this.config.scale <= 1)
+      this.config.glitchCounter++;
+      this.config.glitch += this.config.glitchRate;
+      this.obj.filters[0].size = new PIXI.Point(this.config.glitch, this.config.glitch);
+      if(this.config.glitch <= 1)
         waiting = true;
     }
-  //  this.obj.position.y += this.config.zoomRate;
-  //  this.obj.rotation = this.config.zoomCounter * 0.1;
+
+    // if(this.config.zoomCounter >= this.config.zoomPace) {
+    //   this.config.zoomRate = -this.config.zoomRate;
+    //   this.config.zoomCounter = 0;
+    // }
+    // this.config.zoomCounter++;
+    // this.config.scale += this.config.zoomRate;
+    //
+    // this.obj.scale = new PIXI.Point(this.config.scale, this.config.scale);
+
   };
 
   this.stop = function() {

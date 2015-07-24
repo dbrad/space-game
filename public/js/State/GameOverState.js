@@ -13,6 +13,7 @@ function GameOverState() {
   var GUI = new GUIModules(this);
 
   this.OnEnter = function() {
+    this.Stage = new PIXI.Container();
     this.game.Input.AddObserverCallback(pushInput);
 
     var GameOver = GUI.addGUIModule('GameOver');

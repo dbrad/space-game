@@ -44,8 +44,8 @@ function GameState() {
     this.GUI.Modules.DaySystem.LocalStage.position.y = 4;
 
     this.Resources.initGUI(this.Stage);
-    this.GUI.Modules.Resources.LocalStage.position.x = 17;
-    this.GUI.Modules.Resources.LocalStage.position.y = 17;
+    this.GUI.Modules.Resources.LocalStage.position.x = 65+17;
+    this.GUI.Modules.Resources.LocalStage.position.y = 35+17;
 
     this.Crew.initGUI(this.Stage);
     this.GUI.Modules.Crew.LocalStage.position.x = (this.game.getWidth() - 92);
@@ -53,6 +53,9 @@ function GameState() {
 
     this.Animations = [];
     this.Animations.push(new Animation.Glitch(this.GUI.Modules.Crew.LocalStage));
+    this.Animations[this.Animations.length - 1].start();
+
+    this.Animations.push(new Animation.Glitch(this.GUI.Modules.Resources.LocalStage));
     this.Animations[this.Animations.length - 1].start();
 
     FoodStation.initGUI(this.Stage);

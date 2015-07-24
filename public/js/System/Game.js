@@ -28,7 +28,7 @@ function Game(width, height) {
 
   var _busy       = false;
   var _delta      = 0.0;
-  var DELTA_CONST = 3.0;
+  var DELTA_CONST = 8.0;
 
   var _frameRate    = 60.0;
   var _updateRate   = _frameRate * 2;

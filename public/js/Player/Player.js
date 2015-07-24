@@ -62,7 +62,7 @@ function Player() {
       var Background = Module.addGUIElement("BG", new PIXI.Graphics());
       Background.beginFill(0x3b9bff, 0.25);
       Background.lineStyle(3, 0x3b9bff, 0.5);
-      Background.drawRect(-10, -10, 155, 90);
+      Background.drawRect(-10, -10, 145, 90);
       Background.endFill();
 
       var Header = Module.addGUIElement("Header", new PIXI.Text("RESOURCES", {font:"25px Consolas", fill: "white", lineHeight: 25}));
@@ -71,21 +71,25 @@ function Player() {
       Labels.position.y = 25;
 
       var Rations = Module.addTextElement("Rations", new PIXI.Text(this.Rations, {font:"15px Consolas", fill: "white", lineHeight: 15}), this, "Rations");
-      Rations.position.x = 135;
+      Rations.position.x = 125;
       Rations.anchor.x = 1.0;
       Rations.position.y = 25;
 
       var Energy = Module.addTextElement("Energy", new PIXI.Text(this.Energy, {font:"15px Consolas", fill: "white", lineHeight: 15}), this, "Energy");
-      Energy.position.x = 135;
+      Energy.position.x = 125;
       Energy.anchor.x = 1.0;
       Energy.position.y = 40;
 
       var Ore = Module.addTextElement("Ore", new PIXI.Text(this.Ore, {font:"15px Consolas", fill: "white", lineHeight: 15}), this, "Ore");
-      Ore.position.x = 135;
+      Ore.position.x = 125;
       Ore.anchor.x = 1.0;
       Ore.position.y = 55;
 
-      Module.LocalStage.filters = [new PIXI.FXAAFilter()];
+      Module.LocalStage.pivot.y = 35;
+      Module.LocalStage.pivot.x = 60;
+
+      Module.LocalStage.filters = [new PIXI.filters.PixelateFilter()];
+      Module.LocalStage.filters[0].size = new PIXI.Point(1,1);
       Stage.addChild(Module.LocalStage);
     }
   };
