@@ -59,6 +59,12 @@ function Player() {
     initGUI: function(Stage) {
       var Module = player.GUI.addGUIModule("Resources");
 
+      var Background = Module.addGUIElement("BG", new PIXI.Graphics());
+      Background.beginFill(0x3b9bff, 0.25);
+      Background.lineStyle(3, 0x3b9bff, 0.5);
+      Background.drawRect(-10, -10, 155, 90);
+      Background.endFill();
+
       var Header = Module.addGUIElement("Header", new PIXI.Text("RESOURCES", {font:"25px monospace", fill: "white", lineHeight: 25}));
 
       var Labels = Module.addGUIElement("Labels", new PIXI.Text("RATIONS\rENERGY\rORE", {font:"15px monospace", fill: "white", lineHeight: 15}));
@@ -79,6 +85,7 @@ function Player() {
       Ore.anchor.x = 1.0;
       Ore.position.y = 55;
 
+      Module.LocalStage.filters = [new PIXI.FXAAFilter()];
       Stage.addChild(Module.LocalStage);
     }
   };
@@ -120,26 +127,40 @@ function Player() {
     initGUI: function(Stage) {
       var Module = player.GUI.addGUIModule("Crew");
 
+      var Background = Module.addGUIElement("BG", new PIXI.Graphics());
+      Background.beginFill(0x3b9bff, 0.25);
+      Background.lineStyle(3, 0x3b9bff, 0.5);
+      Background.drawRect(-10, -10, 170, 90);
+      Background.endFill();
+
       var Header = Module.addGUIElement("Header", new PIXI.Text("CREW STATUS", {font:"25px monospace", fill: "white", lineHeight: 25}));
-      Header.anchor.x = 1.0;
+    //  Header.anchor.x = 1.0;
 
       var Labels = Module.addGUIElement("Labels", new PIXI.Text("TOTAL\rUNASSIGNED\rINJURED", {font:"15px monospace", fill: "white", lineHeight: 15}));
-      Labels.anchor.x = 1.0;
-      Labels.position.x = -75;
+    //  Labels.anchor.x = 1.0;
+      Labels.position.x = 0;
       Labels.position.y = 25;
 
       var Total = Module.addTextElement("Total", new PIXI.Text(this.Total, {font:"15px monospace", fill: "white", lineHeight: 15}), this, "Total");
       Total.anchor.x = 1.0;
+      Total.position.x = 150;
       Total.position.y = 25;
 
       var Unassigned = Module.addTextElement("Unassigned", new PIXI.Text(this.UnassignedCount, {font:"15px monospace", fill: "white", lineHeight: 15}), this, "UnassignedCount");
       Unassigned.anchor.x = 1.0;
+      Unassigned.position.x = 150;
       Unassigned.position.y = 40;
 
       var Injured = Module.addTextElement("Injured", new PIXI.Text(this.InjuredCount, {font:"15px monospace", fill: "white", lineHeight: 15}), this, "InjuredCount");
       Injured.anchor.x = 1.0;
+      Injured.position.x = 150;
       Injured.position.y = 55;
 
+      Module.LocalStage.pivot.y = 35;
+      Module.LocalStage.pivot.x = 75;
+
+      Module.LocalStage.filters = [new PIXI.filters.PixelateFilter()];
+      Module.LocalStage.filters[0].size = new PIXI.Point(1,1);
       Stage.addChild(Module.LocalStage);
     }
   };

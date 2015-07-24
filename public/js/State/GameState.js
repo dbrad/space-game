@@ -41,12 +41,19 @@ function GameState() {
 
     TimeTracking.initGUI(this.Stage);
     this.GUI.Modules.DaySystem.LocalStage.position.x = this.game.getWidth()/2;
+    this.GUI.Modules.DaySystem.LocalStage.position.y = 4;
 
     this.Resources.initGUI(this.Stage);
-    this.GUI.Modules.Resources.LocalStage.position.x = 2;
+    this.GUI.Modules.Resources.LocalStage.position.x = 17;
+    this.GUI.Modules.Resources.LocalStage.position.y = 17;
 
     this.Crew.initGUI(this.Stage);
-    this.GUI.Modules.Crew.LocalStage.position.x = (this.game.getWidth()) - 2;
+    this.GUI.Modules.Crew.LocalStage.position.x = (this.game.getWidth() - 92);
+    this.GUI.Modules.Crew.LocalStage.position.y = (52);
+
+    this.Animations = [];
+    this.Animations.push(new Animation.Glitch(this.GUI.Modules.Crew.LocalStage));
+    this.Animations[this.Animations.length - 1].start();
 
     FoodStation.initGUI(this.Stage);
     this.GUI.Modules[FoodStation.name].LocalStage.position.x = this.game.getWidth()/4;
@@ -68,7 +75,7 @@ function GameState() {
     this.Stage.destroy(true);
   };
 
-  this.Update = function() {
+  this.Update = function(delta) {
     var topKey = keyQueue.shift();
     switch( topKey ) {
       case "ENTER":
@@ -77,6 +84,10 @@ function GameState() {
       default:
       break;
     }
+
+    this.Animations.forEach(function(animation) {
+      animation.update(delta);
+    });
 
     // NOTE(david): Player has submitted turn orders
     if( this.player.ready ) {

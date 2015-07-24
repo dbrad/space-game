@@ -22,6 +22,7 @@ function GUIModule(name) {
   this.name = name;
   this.Elements = {};
   this.LocalStage = new PIXI.Container();
+  
 
   this.addGUIElement = function(name, obj) {
     this.Elements[name] = new GUIElement(name, obj);
