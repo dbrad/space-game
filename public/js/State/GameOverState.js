@@ -17,7 +17,7 @@ function GameOverState() {
 
     var GameOver = GUI.addGUIModule('GameOver');
 
-    var GOText = GameOver.addGUIElement("GameOver", new PIXI.Text("Game Over", {font:"25px monospace", fill: "white"}));
+    var GOText = GameOver.addGUIElement("GameOver", new PIXI.Text("Game Over", {font:"25px Consolas", fill: "white"}));
     GOText.anchor = new PIXI.Point(0.5, 0.5);
     GOText.position = new PIXI.Point(this.game.getWidth()/2, this.game.getHeight()/2);
 

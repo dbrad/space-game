@@ -47,10 +47,10 @@ function DaySystem(difficulty, State) {
 
   this.initGUI = function(Stage) {
     var Module = this.GUI.addGUIModule("DaySystem");
-    var DayEle = Module.addTextElement("Day", new PIXI.Text("0", { font : "20px monospace", fill: "white"}), this.data, "day");
-    var TurnEle = Module.addTextElement("Turn", new PIXI.Text("0", { font : "20px monospace", fill: "white"}), this.data, "turn");
+    var DayEle = Module.addTextElement("Day", new PIXI.Text("0", { font : "20px Consolas", fill: "white"}), this.data, "day");
+    var TurnEle = Module.addTextElement("Turn", new PIXI.Text("0", { font : "20px Consolas", fill: "white"}), this.data, "turn");
     TurnEle.position.y = (20);
-    var Labels = Module.addGUIElement("Labels", new PIXI.Text("DAY\rTURN", {font: "20px monospace", fill: "white", align: "right", lineHeight: 20}));
+    var Labels = Module.addGUIElement("Labels", new PIXI.Text("DAY\rTURN", {font: "20px Consolas", fill: "white", align: "right", lineHeight: 20}));
     Labels.anchor.x = 1;
     Labels.position.x = -5;
 

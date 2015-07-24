@@ -14,10 +14,10 @@ function ResourceStation(name, State, min, max) {
 
   this.initGUI = function(Stage) {
     var Module = State.GUI.addGUIModule(this.name);
-    var TitleEle = Module.addGUIElement("Title", new PIXI.Text(this.name, {font:"15px monospace", fill: "white"}));
+    var TitleEle = Module.addGUIElement("Title", new PIXI.Text(this.name, {font:"15px Consolas", fill: "white"}));
     TitleEle.anchor.x = TitleEle.anchor.y = 0.5;
 
-    var CrewCount = Module.addTextElement("Count", new PIXI.Text(this.MetaData.CrewCount, {font:"15px monospace", fill: "white"}), this.MetaData, "CrewCount");
+    var CrewCount = Module.addTextElement("Count", new PIXI.Text(this.MetaData.CrewCount, {font:"15px Consolas", fill: "white"}), this.MetaData, "CrewCount");
     CrewCount.anchor.x = CrewCount.anchor.y = 0.5;
     CrewCount.position.y = 20;
 
