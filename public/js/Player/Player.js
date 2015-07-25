@@ -119,6 +119,28 @@ function Player() {
       });
       return result;
     },
+    assignCrew: function(station, event) {
+      var success = false;
+      if(this.UnassignedCount > 0) {
+        var crewman = _.findWhere(this.Members, {Station: "UNASSIGNED"});
+        if(crewman) {
+          crewman.Station = station;
+          success = true;
+        }
+      }
+      return success;
+    },
+    unassignCrew: function(station, event) {
+      var success = false;
+      if(this.StationCounts[station] > 0) {
+        var crewman = _.findWhere(this.Members, {Station: station});
+        if(crewman) {
+          crewman.Station = "UNASSIGNED";
+          success = true;
+        }
+      }
+      return success;
+    },
     debugCrew: function() {
       var Crew = this.Members;
       for(var crewCount = 0; crewCount < 20; crewCount++) {

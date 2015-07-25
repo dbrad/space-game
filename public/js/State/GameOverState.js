@@ -26,6 +26,7 @@ function GameOverState() {
   };
 
   this.OnExit = function() {
+    this.game.Input.ClearObservers();
     this.Stage.destroy(true);
   };
 

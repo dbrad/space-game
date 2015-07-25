@@ -61,20 +61,29 @@ function GameState() {
     FoodStation.initGUI(this.Stage);
     this.GUI.Modules[FoodStation.name].LocalStage.position.x = this.game.getWidth()/4;
     this.GUI.Modules[FoodStation.name].LocalStage.position.y = 200;
+    this.GUI.Modules[FoodStation.name].Elements.Plus.G.mousedown = this.Crew.assignCrew.bind(this.player.Crew, FoodStation.name);
+    this.GUI.Modules[FoodStation.name].Elements.Minus.G.mousedown = this.Crew.unassignCrew.bind(this.player.Crew, FoodStation.name);
 
     SolarStation.initGUI(this.Stage);
     this.GUI.Modules[SolarStation.name].LocalStage.position.x = this.game.getWidth()/2;
     this.GUI.Modules[SolarStation.name].LocalStage.position.y = 200;
+    this.GUI.Modules[SolarStation.name].Elements.Plus.G.mousedown = this.Crew.assignCrew.bind(this.player.Crew, SolarStation.name);
+    this.GUI.Modules[SolarStation.name].Elements.Minus.G.mousedown = this.Crew.unassignCrew.bind(this.player.Crew, SolarStation.name);
 
     TheMine.initGUI(this.Stage);
     this.GUI.Modules[TheMine.name].LocalStage.position.x = this.game.getWidth()/4 * 3;
     this.GUI.Modules[TheMine.name].LocalStage.position.y = 200;
+    this.GUI.Modules[TheMine.name].Elements.Plus.G.mousedown = this.Crew.assignCrew.bind(this.player.Crew, TheMine.name);
+    this.GUI.Modules[TheMine.name].Elements.Minus.G.mousedown = this.Crew.unassignCrew.bind(this.player.Crew, TheMine.name);
 
     this.GUI.updateBindings();
   };
 
   this.OnExit = function() {
     this.game.Input.ClearObservers();
+    PIXI.Texture.removeTextureFromCache('assets/minus.png');
+    PIXI.Texture.removeTextureFromCache('assets/plus.png');
+
     this.Stage.destroy(true);
   };
 
@@ -142,9 +151,9 @@ function GameState() {
         this.gsm.Change("GAMEOVER");
       this.player.ready = false;
 
-      this.GUI.updateBindings();
-    }
 
+    }
+this.GUI.updateBindings();
   };
 
   return this;

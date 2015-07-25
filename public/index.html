@@ -30,11 +30,13 @@
 
       $(function(){
         // NOTE(david): Will load any assets here.
-        /*
+/*
         var loader = PIXI.loader;
+        loader.add('plus','assets/plus.png');
+        loader.add('minus','assets/minus.png');
         loader.once("complete", onLoaded);
         loader.load();
-        */
+*/
         onLoaded();
         function onLoaded() {
           var game = new Game(800, 600, { antialias: true });
@@ -47,8 +49,8 @@
       html, body {
         text-align: center;
       }
-      canvas {
-        cursor: url("/assets/cursor_pointerFlat_shadow.png"), default !important;
+      body {
+        cursor: url("/assets/cursor_pointerFlat_shadow.png"), default;
       }
     </style>
     <title></title>
