@@ -5,6 +5,7 @@ function ResourceStation(name, State, min, max) {
   var baseMaxOut = max;
 
   this.name = name;
+  this.MaxCrew = 5;
 
   this.MetaData = {
     get CrewCount() {
@@ -80,8 +81,9 @@ function ResourceStation(name, State, min, max) {
     return result;
   };
 
-  this.increaseCrew = function() {
-
+  this.increaseCrew = function(event) {
+    if(this.MetaData.CrewCount < this.MaxCrew)
+      State.player.Crew.assignCrew(this.name, event);
   };
 
   this.descreaseCrew = function() {

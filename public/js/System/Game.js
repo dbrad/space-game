@@ -4,7 +4,7 @@ function Game(width, height) {
   var _handler = null;
   var _width = width;
   var _height = height;
-  var _graphics = new PIXI.autoDetectRenderer(_width, _height);
+  var _graphics = new PIXI.autoDetectRenderer(_width, _height, { transparent: true, antialias: true });
 
   var _player = new Player();
   var GSM = new StateMachine();

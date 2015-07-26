@@ -39,7 +39,7 @@
 */
         onLoaded();
         function onLoaded() {
-          var game = new Game(800, 600, { antialias: true });
+          var game = new Game(800, 600);
           game.start();
         }
       });
@@ -51,6 +51,9 @@
       }
       body {
         cursor: url("/assets/cursor_pointerFlat_shadow.png"), default;
+      }
+      canvas {
+        background-image: url("assets/bg.jpg");
       }
     </style>
     <title></title>

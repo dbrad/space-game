@@ -25,7 +25,7 @@ function GameState() {
 
     TimeTracking = new DaySystem("NORMAL", this);
 
-    FoodStation   = new ResourceStation("Hydroponoic Farm", this , 0, 0);
+    FoodStation   = new ResourceStation("Hydroponic Farm", this , 0, 0);
     SolarStation  = new ResourceStation("Solar Farm", this , 1, 1);
     TheMine       = new ResourceStation("Asteroid Mine", this , 0, 0);
     ResearchStation = {};
@@ -39,12 +39,14 @@ function GameState() {
 
     this.game.Input.AddObserverCallback(pushInput);
 
+    this.initGUI();
+
     TimeTracking.initGUI(this.Stage);
     this.GUI.Modules.DaySystem.LocalStage.position.x = this.game.getWidth()/2;
-    this.GUI.Modules.DaySystem.LocalStage.position.y = 4;
+    this.GUI.Modules.DaySystem.LocalStage.position.y = 35;
 
     this.Resources.initGUI(this.Stage);
-    this.GUI.Modules.Resources.LocalStage.position.x = 65+17;
+    this.GUI.Modules.Resources.LocalStage.position.x = 60+17;
     this.GUI.Modules.Resources.LocalStage.position.y = 35+17;
 
     this.Crew.initGUI(this.Stage);
@@ -61,19 +63,19 @@ function GameState() {
     FoodStation.initGUI(this.Stage);
     this.GUI.Modules[FoodStation.name].LocalStage.position.x = this.game.getWidth()/4;
     this.GUI.Modules[FoodStation.name].LocalStage.position.y = 200;
-    this.GUI.Modules[FoodStation.name].Elements.Plus.G.mousedown = this.Crew.assignCrew.bind(this.player.Crew, FoodStation.name);
+    this.GUI.Modules[FoodStation.name].Elements.Plus.G.mousedown = FoodStation.increaseCrew.bind(FoodStation); //this.Crew.assignCrew.bind(this.player.Crew, FoodStation.name);
     this.GUI.Modules[FoodStation.name].Elements.Minus.G.mousedown = this.Crew.unassignCrew.bind(this.player.Crew, FoodStation.name);
 
     SolarStation.initGUI(this.Stage);
     this.GUI.Modules[SolarStation.name].LocalStage.position.x = this.game.getWidth()/2;
     this.GUI.Modules[SolarStation.name].LocalStage.position.y = 200;
-    this.GUI.Modules[SolarStation.name].Elements.Plus.G.mousedown = this.Crew.assignCrew.bind(this.player.Crew, SolarStation.name);
+    this.GUI.Modules[SolarStation.name].Elements.Plus.G.mousedown = SolarStation.increaseCrew.bind(SolarStation); //this.Crew.assignCrew.bind(this.player.Crew, SolarStation.name);
     this.GUI.Modules[SolarStation.name].Elements.Minus.G.mousedown = this.Crew.unassignCrew.bind(this.player.Crew, SolarStation.name);
 
     TheMine.initGUI(this.Stage);
     this.GUI.Modules[TheMine.name].LocalStage.position.x = this.game.getWidth()/4 * 3;
     this.GUI.Modules[TheMine.name].LocalStage.position.y = 200;
-    this.GUI.Modules[TheMine.name].Elements.Plus.G.mousedown = this.Crew.assignCrew.bind(this.player.Crew, TheMine.name);
+    this.GUI.Modules[TheMine.name].Elements.Plus.G.mousedown = TheMine.increaseCrew.bind(TheMine); //this.Crew.assignCrew.bind(this.player.Crew, TheMine.name);
     this.GUI.Modules[TheMine.name].Elements.Minus.G.mousedown = this.Crew.unassignCrew.bind(this.player.Crew, TheMine.name);
 
     this.GUI.updateBindings();
@@ -96,6 +98,8 @@ function GameState() {
       default:
       break;
     }
+
+    TheMine.MaxCrew = this.Resources.Energy;
 
     this.Animations.forEach(function(animation) {
       animation.update(delta);
@@ -144,6 +148,11 @@ function GameState() {
         }
       }
 
+      while(this.Resources.Energy < this.Crew.StationCounts[TheMine.name]) {
+        this.Crew.unassignCrew(TheMine.name);
+        if(this.Resources.Energy <= 0)
+          break;
+      }
       // TODO(david): Unassign miner crewmembers if energy < miner count
 
       TimeTracking.data.incrementTurn();
@@ -153,7 +162,19 @@ function GameState() {
 
 
     }
-this.GUI.updateBindings();
+    this.GUI.updateBindings();
+  };
+
+  this.initGUI = function() {
+    var Module = this.GUI.addGUIModule("BaseGui");
+
+    var Background = Module.addGUIElement("BG", new PIXI.Graphics());
+    Background.beginFill(0x3b9bff, 0.25);
+    Background.lineStyle(3, 0x3b9bff, 0.5);
+    Background.drawRect(2, 2, 800-4, 100);
+    Background.endFill();
+
+    this.Stage.addChild(Module.LocalStage);
   };
 
   return this;

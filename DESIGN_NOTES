@@ -45,3 +45,31 @@ Ore
   - Comes from mining only when manned
   - Victory Points
   - Also used to repair damaged systems
+
+
+
+
+
+Gameplay Cycle
+
+Should upgrades be per game and done in game
+or
+Should upgrade cost money outside of the mining game?
+
+Crew / Resource purchase (Game Setup)
+Game starts
+  => Daily event popped and resolved (Start of cycle)
+    => Turn locked in by player
+    => Turn Event Popped and Resolved
+    => Resolve Resource Output
+    => Resolve Turn Based Costs (Energy)
+  => After x Turns, new day starts
+  => Pay Daily Costs (Rations / Human Life if no rations)
+  => Begin Daily Cycle Again (End of cycle)
+Game Ends (Either by reaching Day Goal, or all crew is dead)
+Cash Out Resources
+  => $50 for Rations
+  => $100 for Energy
+  => $1000 for Ore
+  => Add more minerals
+Start New Game with loads-a-money

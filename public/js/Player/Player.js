@@ -111,7 +111,7 @@ function Player() {
       return this.StationCounts.UNASSIGNED;
     },
     get StationCounts() {
-      var result = { "UNASSIGNED": 0, "Hydroponoic Farm": 0, "Solar Farm": 0, "Asteroid Mine": 0};
+      var result = { "UNASSIGNED": 0, "Hydroponic Farm": 0, "Solar Farm": 0, "Asteroid Mine": 0};
       _.each(this.Members, function(member) {
         if(!result[member.Station])
           result[member.Station] = 0;
@@ -143,12 +143,12 @@ function Player() {
     },
     debugCrew: function() {
       var Crew = this.Members;
-      for(var crewCount = 0; crewCount < 20; crewCount++) {
+      for(var crewCount = 0; crewCount < 10; crewCount++) {
         Crew.push(new Crewman());
       }
-      Crew[0].Station = Crew[1].Station = Crew[2].Station = Crew[3].Station = Crew[4].Station = "Hydroponoic Farm";
-      Crew[5].Station = Crew[6].Station = Crew[7].Station = Crew[8].Station = Crew[9].Station = "Solar Farm";
-      Crew[10].Station = Crew[11].Station = Crew[12].Station = Crew[13].Station = Crew[14].Station = "Asteroid Mine";
+      //Crew[0].Station = Crew[1].Station = Crew[2].Station = Crew[3].Station = Crew[4].Station = "Hydroponic Farm";
+      //Crew[5].Station = Crew[6].Station = Crew[7].Station = Crew[8].Station = Crew[9].Station = "Solar Farm";
+      //Crew[10].Station = Crew[11].Station = Crew[12].Station = Crew[13].Station = Crew[14].Station = "Asteroid Mine";
     },
     initGUI: function(Stage) {
       var Module = player.GUI.addGUIModule("Crew");
