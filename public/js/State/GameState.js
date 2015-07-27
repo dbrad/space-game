@@ -42,15 +42,15 @@ function GameState() {
     this.initGUI();
 
     TimeTracking.initGUI(this.Stage);
-    this.GUI.Modules.DaySystem.LocalStage.position.x = this.game.getWidth()/2;
-    this.GUI.Modules.DaySystem.LocalStage.position.y = 35;
+    this.GUI.Modules.DaySystem.LocalStage.position.x = (this.game.getWidth()) - 45;
+    this.GUI.Modules.DaySystem.LocalStage.position.y = 8;
 
     this.Resources.initGUI(this.Stage);
-    this.GUI.Modules.Resources.LocalStage.position.x = 60+17;
-    this.GUI.Modules.Resources.LocalStage.position.y = 35+17;
+    this.GUI.Modules.Resources.LocalStage.position.x = 77;
+    this.GUI.Modules.Resources.LocalStage.position.y = 52;
 
     this.Crew.initGUI(this.Stage);
-    this.GUI.Modules.Crew.LocalStage.position.x = (this.game.getWidth() - 92);
+    this.GUI.Modules.Crew.LocalStage.position.x = 240;
     this.GUI.Modules.Crew.LocalStage.position.y = (52);
 
     this.Animations = [];
@@ -62,19 +62,19 @@ function GameState() {
 
     FoodStation.initGUI(this.Stage);
     this.GUI.Modules[FoodStation.name].LocalStage.position.x = this.game.getWidth()/4;
-    this.GUI.Modules[FoodStation.name].LocalStage.position.y = 200;
+    this.GUI.Modules[FoodStation.name].LocalStage.position.y = 150;
     this.GUI.Modules[FoodStation.name].Elements.Plus.G.mousedown = FoodStation.increaseCrew.bind(FoodStation); //this.Crew.assignCrew.bind(this.player.Crew, FoodStation.name);
     this.GUI.Modules[FoodStation.name].Elements.Minus.G.mousedown = this.Crew.unassignCrew.bind(this.player.Crew, FoodStation.name);
 
     SolarStation.initGUI(this.Stage);
     this.GUI.Modules[SolarStation.name].LocalStage.position.x = this.game.getWidth()/2;
-    this.GUI.Modules[SolarStation.name].LocalStage.position.y = 200;
+    this.GUI.Modules[SolarStation.name].LocalStage.position.y = 150;
     this.GUI.Modules[SolarStation.name].Elements.Plus.G.mousedown = SolarStation.increaseCrew.bind(SolarStation); //this.Crew.assignCrew.bind(this.player.Crew, SolarStation.name);
     this.GUI.Modules[SolarStation.name].Elements.Minus.G.mousedown = this.Crew.unassignCrew.bind(this.player.Crew, SolarStation.name);
 
     TheMine.initGUI(this.Stage);
     this.GUI.Modules[TheMine.name].LocalStage.position.x = this.game.getWidth()/4 * 3;
-    this.GUI.Modules[TheMine.name].LocalStage.position.y = 200;
+    this.GUI.Modules[TheMine.name].LocalStage.position.y = 150;
     this.GUI.Modules[TheMine.name].Elements.Plus.G.mousedown = TheMine.increaseCrew.bind(TheMine); //this.Crew.assignCrew.bind(this.player.Crew, TheMine.name);
     this.GUI.Modules[TheMine.name].Elements.Minus.G.mousedown = this.Crew.unassignCrew.bind(this.player.Crew, TheMine.name);
 
@@ -168,11 +168,23 @@ function GameState() {
   this.initGUI = function() {
     var Module = this.GUI.addGUIModule("BaseGui");
 
-    var Background = Module.addGUIElement("BG", new PIXI.Graphics());
-    Background.beginFill(0x3b9bff, 0.25);
-    Background.lineStyle(3, 0x3b9bff, 0.5);
-    Background.drawRect(2, 2, 800-4, 100);
-    Background.endFill();
+    var BackgroundTop = Module.addGUIElement("BGTop", new PIXI.Graphics());
+    BackgroundTop.beginFill(0x999999, 0.25);
+    BackgroundTop.lineStyle(2, 0x999999, 0.5);
+    BackgroundTop.drawRect(2, 2, this.game.getWidth()-4, 100);
+    BackgroundTop.endFill();
+
+    var BackgroundBottom = Module.addGUIElement("BGBot", new PIXI.Graphics());
+    BackgroundBottom.beginFill(0x999999, 0.25);
+    BackgroundBottom.lineStyle(2, 0x999999, 0.5);
+    BackgroundBottom.drawRect(306, this.game.getHeight()-102, this.game.getWidth()-304, 100);
+    BackgroundBottom.endFill();
+
+    var BackgroundStatus = Module.addGUIElement("BGStat", new PIXI.Graphics());
+    BackgroundStatus.beginFill(0x999999, 0.25);
+    BackgroundStatus.lineStyle(2, 0x999999, 0.5);
+    BackgroundStatus.drawRect(2, this.game.getHeight()-302, 300, 300);
+    BackgroundStatus.endFill();
 
     this.Stage.addChild(Module.LocalStage);
   };

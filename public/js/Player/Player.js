@@ -1,8 +1,8 @@
 function Player() {
   var player = this;
 
-  var Energy = 0;
-  var Rations = 0;
+  var Energy = 10;
+  var Rations = 10;
   var Ore = 0;
 
   this.Resources = {
@@ -59,28 +59,28 @@ function Player() {
     initGUI: function(Stage) {
       var Module = player.GUI.addGUIModule("Resources");
 
-      var Background = Module.addGUIElement("BG", new PIXI.Graphics());
-      Background.beginFill(0x3b9bff, 0.25);
-      Background.lineStyle(3, 0x3b9bff, 0.5);
-      Background.drawRect(-10, -10, 145, 90);
-      Background.endFill();
+      // var Background = Module.addGUIElement("BG", new PIXI.Graphics());
+      // Background.beginFill(0x999999, 0.25);
+      // Background.lineStyle(2, 0x999999, 0.5);
+      // Background.drawRect(-10, -10, 145, 90);
+      // Background.endFill();
 
-      var Header = Module.addGUIElement("Header", new PIXI.Text("RESOURCES", {font:"25px Consolas", fill: "white", lineHeight: 25}));
+      var Header = Module.addGUIElement("Header", new PIXI.Text("RESOURCES", {font:"25px Share Tech Mono", fill: "white", lineHeight: 25}));
 
-      var Labels = Module.addGUIElement("Labels", new PIXI.Text("RATIONS\rENERGY\rORE", {font:"15px Consolas", fill: "white", lineHeight: 15}));
+      var Labels = Module.addGUIElement("Labels", new PIXI.Text("RATIONS\rENERGY\rORE", {font:"16px Share Tech Mono", fill: "white", lineHeight: 15}));
       Labels.position.y = 25;
 
-      var Rations = Module.addTextElement("Rations", new PIXI.Text(this.Rations, {font:"15px Consolas", fill: "white", lineHeight: 15}), this, "Rations");
+      var Rations = Module.addTextElement("Rations", new PIXI.Text(this.Rations, {font:"16px Share Tech Mono", fill: "white", lineHeight: 15}), this, "Rations");
       Rations.position.x = 125;
       Rations.anchor.x = 1.0;
       Rations.position.y = 25;
 
-      var Energy = Module.addTextElement("Energy", new PIXI.Text(this.Energy, {font:"15px Consolas", fill: "white", lineHeight: 15}), this, "Energy");
+      var Energy = Module.addTextElement("Energy", new PIXI.Text(this.Energy, {font:"16px Share Tech Mono", fill: "white", lineHeight: 15}), this, "Energy");
       Energy.position.x = 125;
       Energy.anchor.x = 1.0;
       Energy.position.y = 40;
 
-      var Ore = Module.addTextElement("Ore", new PIXI.Text(this.Ore, {font:"15px Consolas", fill: "white", lineHeight: 15}), this, "Ore");
+      var Ore = Module.addTextElement("Ore", new PIXI.Text(this.Ore, {font:"16px Share Tech Mono", fill: "white", lineHeight: 15}), this, "Ore");
       Ore.position.x = 125;
       Ore.anchor.x = 1.0;
       Ore.position.y = 55;
@@ -153,34 +153,34 @@ function Player() {
     initGUI: function(Stage) {
       var Module = player.GUI.addGUIModule("Crew");
 
-      var Background = Module.addGUIElement("BG", new PIXI.Graphics());
-      Background.beginFill(0x3b9bff, 0.25);
-      Background.lineStyle(3, 0x3b9bff, 0.5);
-      Background.drawRect(-10, -10, 170, 90);
-      Background.endFill();
+      // var Background = Module.addGUIElement("BG", new PIXI.Graphics());
+      // Background.beginFill(0x999999, 0.25);
+      // Background.lineStyle(2, 0x999999, 0.5);
+      // Background.drawRect(-10, -10, 170, 90);
+      // Background.endFill();
 
-      var Header = Module.addGUIElement("Header", new PIXI.Text("CREW STATUS", {font:"25px Consolas", fill: "white", lineHeight: 25}));
+      var Header = Module.addGUIElement("Header", new PIXI.Text("CREW STATUS", {font:"25px Share Tech Mono", fill: "white", lineHeight: 25}));
     //  Header.anchor.x = 1.0;
 
-      var Labels = Module.addGUIElement("Labels", new PIXI.Text("TOTAL\rUNASSIGNED\rINJURED", {font:"15px Consolas", fill: "white", lineHeight: 15}));
+      var Labels = Module.addGUIElement("Labels", new PIXI.Text("TOTAL\rUNASSIGNED", {font:"16px Share Tech Mono", fill: "white", lineHeight: 15}));
     //  Labels.anchor.x = 1.0;
       Labels.position.x = 0;
       Labels.position.y = 25;
 
-      var Total = Module.addTextElement("Total", new PIXI.Text(this.Total, {font:"15px Consolas", fill: "white", lineHeight: 15}), this, "Total");
+      var Total = Module.addTextElement("Total", new PIXI.Text(this.Total, {font:"16px Share Tech Mono", fill: "white", lineHeight: 15}), this, "Total");
       Total.anchor.x = 1.0;
       Total.position.x = 150;
       Total.position.y = 25;
 
-      var Unassigned = Module.addTextElement("Unassigned", new PIXI.Text(this.UnassignedCount, {font:"15px Consolas", fill: "white", lineHeight: 15}), this, "UnassignedCount");
+      var Unassigned = Module.addTextElement("Unassigned", new PIXI.Text(this.UnassignedCount, {font:"16px Share Tech Mono", fill: "white", lineHeight: 15}), this, "UnassignedCount");
       Unassigned.anchor.x = 1.0;
       Unassigned.position.x = 150;
       Unassigned.position.y = 40;
 
-      var Injured = Module.addTextElement("Injured", new PIXI.Text(this.InjuredCount, {font:"15px Consolas", fill: "white", lineHeight: 15}), this, "InjuredCount");
-      Injured.anchor.x = 1.0;
-      Injured.position.x = 150;
-      Injured.position.y = 55;
+      // var Injured = Module.addTextElement("Injured", new PIXI.Text(this.InjuredCount, {font:"16px Share Tech Mono", fill: "white", lineHeight: 15}), this, "InjuredCount");
+      // Injured.anchor.x = 1.0;
+      // Injured.position.x = 150;
+      // Injured.position.y = 55;
 
       Module.LocalStage.pivot.y = 35;
       Module.LocalStage.pivot.x = 75;
